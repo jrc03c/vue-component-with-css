@@ -50,3 +50,7 @@ Or use as a global function (as a property of `window`).
 ```
 
 This works for both root-level objects that are used to create apps or objects that are used to create components for re-use. See the demo in the `/demo` folder for a fuller example.
+
+# Notes & caveats
+
+The main difference in functionality between this and standard Vue 3 components is that this does not provide _scoped_ CSS. If you have any ideas about how to do this easily, please let me know.
