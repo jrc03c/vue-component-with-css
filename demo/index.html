@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="vue-component-with-css.js"></script>
+    <script>
+      const FooComponent = createVueComponentWithCSS({
+        template: /* html */ `
+          <div class="foo">
+            This is a foo component!
+
+            <button @click="$emit('delete')">
+              Delete
+            </button>
+          </div>
+        `,
+
+        data() {
+          return {
+            css: /* css */ `
+              .foo {
+                color: green;
+              }
+            `,
+          }
+        },
+      })
+
+      const BarComponent = createVueComponentWithCSS({
+        template: /* html */ `
+          <div class="bar">
+            This is a bar component!
+
+            <button @click="$emit('delete')">
+              Delete
+            </button>
+          </div>
+        `,
+
+        data() {
+          return {
+            css: /* css */ `
+              .bar {
+                color: blue;
+              }
+            `,
+          }
+        },
+      })
+
+      const app = Vue.createApp(
+        createVueComponentWithCSS({
+          components: {
+            foo: FooComponent,
+            bar: BarComponent,
+          },
+
+          template: /* html */ `
+            <div class="container">
+              <p>
+                <button @click="fooCount++">
+                  Add foo
+                </button>
+
+                <button @click="barCount++">
+                  Add bar
+                </button>
+              </p>
+              
+              <foo
+                v-for="i in range(0, fooCount)"
+                @delete="fooCount--">
+              </foo>
+
+              <bar
+                v-for="i in range(0, barCount)"
+                @delete="barCount--">
+              </bar>
+            </div>
+          `,
+
+          data() {
+            return {
+              css: /* css */ `
+                .container {
+                  font-family: monospace;
+                  background-color: rgb(235, 235, 235);
+                  padding: 1rem;
+                  border-radius: 4px;
+                }
+              `,
+
+              fooCount: 3,
+              barCount: 3,
+            }
+          },
+
+          methods: {
+            range(a, b) {
+              const out = []
+              for (let i = a; i < b; i++) out.push(i)
+              return out
+            },
+          },
+        })
+      )
+
+      app.mount("#app")
+    </script>
+  </body>
+</html>
