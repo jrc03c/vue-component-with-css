@@ -5,14 +5,19 @@ function createVueComponentWithCSS(component) {
   component = component || {}
 
   const data = component.data ? component.data() : {}
-  const mounted = component.mounted ? component.mounted : () => {}
-  const unmounted = component.unmounted ? component.unmounted : () => {}
+  const mounted = component.mounted ? component.mounted : function () {}
+  const unmounted = component.unmounted ? component.unmounted : function () {}
 
   if (!data.css) data.css = ""
-  component.data = () => data
+
+  component.data = function () {
+    return data
+  }
 
   component.mounted = function () {
     const self = this
+    mounted.bind(self)()
+
     count++
 
     if (!styleElement) {
@@ -20,12 +25,11 @@ function createVueComponentWithCSS(component) {
       document.body.appendChild(styleElement)
       styleElement.innerHTML = self.css
     }
-
-    mounted()
   }
 
   component.unmounted = function () {
-    unmounted()
+    const self = this
+    unmounted.bind(self)()
 
     count--
 

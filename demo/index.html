@@ -106,6 +106,15 @@
               for (let i = a; i < b; i++) out.push(i)
               return out
             },
+
+            sayHi() {
+              console.log("Hello!")
+            },
+          },
+
+          mounted() {
+            const self = this
+            self.sayHi()
           },
         })
       )
