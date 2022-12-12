@@ -3,20 +3,24 @@ const process = require("process")
 const watch = require("@jrc03c/watch")
 
 function build() {
-  console.log("\n==========\n")
-  console.log(`Building... (${new Date().toLocaleString()})`)
+  try {
+    console.log("\n==========\n")
+    console.log(`Building... (${new Date().toLocaleString()})`)
 
-  execSync(
-    `npx esbuild src/index.js --bundle --outfile=dist/vue-component-with-css.js --minify`,
-    { encoding: "utf8" }
-  )
+    execSync(
+      `npx esbuild src/index.js --bundle --outfile=dist/vue-component-with-css.js --minify`,
+      { encoding: "utf8" }
+    )
 
-  execSync(
-    `npx esbuild src/index.js --bundle --outfile=demo/vue-component-with-css.js --minify`,
-    { encoding: "utf8" }
-  )
+    execSync(
+      `npx esbuild src/index.js --bundle --outfile=demo/vue-component-with-css.js --minify`,
+      { encoding: "utf8" }
+    )
 
-  console.log("\nBuilt! 🎉\n")
+    console.log("\nBuilt! 🎉\n")
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 if (process.argv.indexOf("--watch") > -1) {
