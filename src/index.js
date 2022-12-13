@@ -4,14 +4,15 @@ function createVueComponentWithCSS(component) {
 
   component = component || {}
 
-  const data = component.data ? component.data() : {}
+  const data = component.data ? component.data : function () {}
   const mounted = component.mounted ? component.mounted : function () {}
   const unmounted = component.unmounted ? component.unmounted : function () {}
 
   if (!data.css) data.css = ""
 
   component.data = function () {
-    return data
+    const self = this
+    return data.bind(self)()
   }
 
   component.mounted = function () {

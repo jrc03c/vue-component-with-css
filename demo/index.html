@@ -34,7 +34,15 @@
       const BarComponent = createVueComponentWithCSS({
         template: /* html */ `
           <div class="bar">
-            This is a bar component!
+            bar counter: {{ count }}
+
+            <button @click="count++">
+              +
+            </button>
+
+            <button @click="count--">
+              −
+            </button>
 
             <button @click="$emit('delete')">
               Delete
@@ -44,6 +52,8 @@
 
         data() {
           return {
+            count: 0,
+
             css: /* css */ `
               .bar {
                 color: blue;
