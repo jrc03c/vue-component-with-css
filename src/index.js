@@ -11,31 +11,40 @@ function createVueComponentWithCSS(component) {
   if (!data.css) data.css = ""
 
   component.data = function () {
-    const self = this
-    return data.bind(self)()
+    return data.bind(this)()
   }
 
   component.mounted = function () {
-    const self = this
-    mounted.bind(self)()
+    mounted.bind(this)()
 
     count++
 
+    let root = this.$root.$el.getRootNode()
+
+    if (root === document) {
+      root = root.body
+    }
+
     if (!styleElement) {
       styleElement = document.createElement("style")
-      document.body.appendChild(styleElement)
-      styleElement.innerHTML = self.css
+      root.appendChild(styleElement)
+      styleElement.innerHTML = this.css
     }
   }
 
   component.unmounted = function () {
-    const self = this
-    unmounted.bind(self)()
+    unmounted.bind(this)()
 
     count--
 
+    let root = this.$root.$el.getRootNode()
+
+    if (root === document) {
+      root = root.body
+    }
+
     if (count < 1) {
-      document.body.removeChild(styleElement)
+      root.removeChild(styleElement)
       styleElement = null
     }
   }

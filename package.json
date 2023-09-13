@@ -13,8 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "@jrc03c/watch": "github:jrc03c/watch",
-    "esbuild": "^0.16.4",
-    "eslint": "^8.29.0",
-    "eslint-plugin-vue": "^9.8.0"
+    "esbuild": "^0.19.2",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0"
   }
 }
