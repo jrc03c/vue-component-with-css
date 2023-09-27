@@ -44,7 +44,18 @@ function createVueComponentWithCSS(component) {
     }
 
     if (count < 1) {
-      root.removeChild(styleElement)
+      if (styleElement) {
+        try {
+          root.removeChild(styleElement)
+        } catch (e) {
+          try {
+            styleElement.parentElement.removeChild(styleElement)
+          } catch (e) {
+            // ...
+          }
+        }
+      }
+
       styleElement = null
     }
   }
